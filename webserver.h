@@ -12,6 +12,7 @@
 #include <cassert>
 #include <sys/epoll.h>
 
+#include "./threadpool/modern_threadpool.h"
 #include "./threadpool/threadpool.h"
 #include "./http/http_conn.h"
 
@@ -64,6 +65,7 @@ public:
 
     //线程池相关
     threadpool<http_conn> *m_pool;
+    //ModernThreadPool<http_conn> *m_pool;
     int m_thread_num;
 
     //epoll_event相关
@@ -78,5 +80,8 @@ public:
     //定时器相关
     client_data *users_timer;
     Utils utils;
+
+    //test
+    ModernThreadPool<http_conn> *m_m_pool_;
 };
 #endif

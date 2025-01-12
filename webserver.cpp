@@ -1,4 +1,6 @@
 #include "webserver.h"
+#include "threadpool/modern_threadpool.h"
+#include "threadpool/threadpool.h"
 
 WebServer::WebServer()
 {
@@ -26,6 +28,7 @@ WebServer::~WebServer()
     delete[] users;
     delete[] users_timer;
     delete m_pool;
+    //delete m_m_pool_;
 }
 
 void WebServer::init(int port, string user, string passWord, string databaseName, int log_write, 
@@ -97,7 +100,9 @@ void WebServer::sql_pool()
 void WebServer::thread_pool()
 {
     //线程池
-    m_pool = new threadpool<http_conn>(m_actormodel, m_connPool, m_thread_num);
+    m_pool = new threadpool<http_conn>(m_actormodel, m_connPool, m_thread_num);//new threadpool<http_conn>(m_actormodel, m_connPool, m_thread_num);
+    //m_m_pool_ = new ModernThreadPool<http_conn>(m_actormodel, m_connPool, m_thread_num);
+    //m_pool = new ModernThreadPool<http_conn>(m_actormodel, m_connPool, m_thread_num);//
 }
 
 void WebServer::eventListen()
